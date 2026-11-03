@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import logging
 import os
 import shutil
 import subprocess
@@ -726,6 +727,17 @@ class TestGitEnvIsolation:
 
 class TestErrorResilience:
 
+
+    def test_missing_workdir_skips_below_warning(self, mgr, tmp_path, caplog):
+        # errors.log captures WARNING+, so a not-yet-created directory must not land there.
+        missing = tmp_path / "not-created-yet"
+        with caplog.at_level(logging.DEBUG, logger="tools.checkpoint_manager"):
+            assert _run_git(["add", "-A"], tmp_path / "store", str(missing)) == (
+                False, "", f"working directory not found: {missing.resolve()}",
+            )
+            assert mgr.ensure_checkpoint(str(missing), "before write_file") is False
+        assert any("working directory not found" in r.getMessage() for r in caplog.records)
+        assert not [r for r in caplog.records if r.levelno >= logging.WARNING]
 
     def test_checkpoint_failures_never_raise(self, mgr, work_dir, monkeypatch):
         def broken_run_git(*args, **kwargs):

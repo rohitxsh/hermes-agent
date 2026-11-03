@@ -372,7 +372,8 @@ def _run_git(
     normalized_working_dir = _normalize_path(working_dir)
     if not normalized_working_dir.exists():
         msg = f"working directory not found: {normalized_working_dir}"
-        logger.error("Git command skipped: %s (%s)", " ".join(["git"] + list(args)), msg)
+        # Expected when a file tool's first write creates the directory: there is nothing to snapshot yet.
+        logger.debug("Git command skipped: %s (%s)", " ".join(["git"] + list(args)), msg)
         return False, "", msg
     if not normalized_working_dir.is_dir():
         msg = f"working directory is not a directory: {normalized_working_dir}"
