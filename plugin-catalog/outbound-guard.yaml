@@ -1,6 +1,6 @@
 name: outbound-guard
 repo: https://github.com/rohitxsh/hermes-hive-ops
-sha: afde23c8fc5a5e9ec463c0152c2167aec55e2f81
+sha: c91718b2086246323045de789ca007a8bf88b04f
 subdir: plugins/outbound-guard
 version: "1.0.0"
 description: "Asks for approval before a tool call sends what looks like a payment card number (Luhn-valid, known issuer prefix), an Indian Aadhaar number (Verhoeff-valid) or an Indian PAN off the machine: messages, browser typing and navigation, web search and extract, delegation, and terminal or execute_code calls that use the network. Unattended runs, where nobody can approve, are blocked. Disclosure — a pre_tool_call hook that escalates matching calls to Hermes's own approval prompt (never auto-approves; a guard error lets the call through unchanged); writes one line per match with the masked value to ~/.hermes/logs/outbound-guard.log; pattern matching only, so split or encoded values are not caught; no network calls, no shell commands, no credentials."
