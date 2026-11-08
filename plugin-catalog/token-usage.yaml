@@ -1,0 +1,16 @@
+name: token-usage
+repo: https://github.com/rohitxsh/hermes-hive-ops
+sha: afde23c8fc5a5e9ec463c0152c2167aec55e2f81
+subdir: plugins/token-usage
+version: "1.0.0"
+description: "Send \"tokens\" (or /tokens) in any chat to see this machine's model token use, lifetime and last 30 days (new input, cached input, output; by provider and by profile), answered from Hermes's session records with no model call, so it works even when every provider is out of quota. Disclosure — reads ~/.hermes/state.db and every ~/.hermes/profiles/*/state.db read-only (session_model_usage table); the reply shows the machine's hostname, provider names and the five busiest profile names to whoever is in the chat; a pre_gateway_dispatch hook rewrites a message that is exactly \"tokens\" into /tokens; no network calls, no writes, no shell commands."
+maintainer: rohitxsh
+tier: community
+category: tools
+requires_hermes: ">=0.23.0"
+capabilities:
+  provides_tools: []
+  provides_hooks:
+    - pre_gateway_dispatch
+  provides_middleware: []
+  requires_env: []
