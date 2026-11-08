@@ -1,0 +1,16 @@
+name: llm-pacer
+repo: https://github.com/rohitxsh/hermes-hive-ops
+sha: afde23c8fc5a5e9ec463c0152c2167aec55e2f81
+subdir: plugins/llm-pacer
+version: "1.0.0"
+description: "Keeps a minimum gap between a profile's model API calls (HERMES_LLM_MIN_GAP_SECONDS, default 2 seconds, 0 turns it off) so bursts from parallel turns, tool loops or cron jobs don't trip provider rate limits. Disclosure — a pre_api_request hook that sleeps in the calling turn's thread (at most 30 seconds per request) and so adds latency under load; it never changes the request; no network calls, no file writes, no shell commands."
+maintainer: rohitxsh
+tier: community
+category: models
+requires_hermes: ">=0.23.0"
+capabilities:
+  provides_tools: []
+  provides_hooks:
+    - pre_api_request
+  provides_middleware: []
+  requires_env: []
